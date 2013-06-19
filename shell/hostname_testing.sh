@@ -6,7 +6,7 @@ HOUR=$(date +%H)
 
 if [ $HOUR -eq 15 ]; then
     echo $HOUR
-elif [ $WATER == 'mibage01' ]; then
+elif [ $WATER == 'hostname' ]; then
     echo "the host is $WATER"
 else
     echo "the host is NOT $WATER"
