@@ -1,0 +1,19 @@
+<div>
+	<form action='' method="GET">
+		<button type="submit" id="yes-button">Submit</button>
+		<button type="submit" id="no-button">Cancel</button>
+	</form>
+</div>
+
+<script>
+	$(function () {
+		$('#yes-button').bind("click", function(e) {
+			alert('attempting to close the modal');
+			$.fn.custombox('close');
+		});
+		$('#no-button').bind("click", function(e) {
+			alert('stopping the close of modal');
+			e.preventDefault();
+		});
+	});
+</script>

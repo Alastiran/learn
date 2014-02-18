@@ -1,0 +1,24 @@
+<html>
+	<link rel="stylesheet" href="jquery.custombox.css"></script>
+	<body>
+		<h1>this is test page</h1>
+		<div id="element">
+			this is modal start element
+		</div>
+		<div style="display:none" class="party-elem"> display me </div>
+		<script src="jquery-1.11.0.js"></script>
+		<script src="jquery.custombox.js"></script>
+		<script>
+			$(function () {
+				$('#element').on('click', function(e) {
+					$.fn.custombox(this, {
+						effect: 'fadein',
+						overlay: true,
+						url: 'hello_custom_box_modal.html',
+					});
+					e.preventDefault();
+				});
+			});
+		</script>
+	</body>
+</html>
