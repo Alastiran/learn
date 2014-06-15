@@ -46,3 +46,25 @@ echo "all at once "; echo $*
 
 # with spaces
 echo "with spaces ";echo $@
+
+mkdir test_me
+
+echo "this is process number $$"
+
+a='first';
+(a='second'; echo $a)
+echo $a
+
+base64_charset=( {A..Z} {a..z} {0..9} + / = )
+echo $base64_charset
+
+File=/etc/fstab.hd
+{
+	read line1
+	read line2
+} < $File
+
+echo "Second line of $File is:"
+echo "$line2"
+
+exit 0;
