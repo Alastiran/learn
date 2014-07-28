@@ -44,9 +44,34 @@ print Dumper *main::europe{ARRAY};
 #print Dumper @main::{"@"};
 package America;
 
-sub california {
-	say "california is tech";
+sub states {
+	say "There are 50 states in america";
 }
 
-california();
+package America::California;
+
+say "what is package? " . __PACKAGE__;
+
+sub name {
+	say "california";
+}
+
+package main;
+
+{
+	$package_name = "America";
+
+	$symbol_table_ref = "${package_name}";
+
+	$test_1 = "this is the output you want to see";
+	$test_2 = "test_1";
+	no strict 'refs';
+
+#	print Dumper $$test_2;
+	print Dumper $symbol_table_ref;
+	print Dumper \%main::;
+	print Dumper \*{$package_name};
+}
+
+#california();
 
