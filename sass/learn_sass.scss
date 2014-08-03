@@ -1,0 +1,56 @@
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+
+body {
+	font: 100% $font-stack;
+	color: $primary-color;
+}
+
+nav {
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	li { display: inline-block; }
+
+	a {
+		display: block;
+		padding: 6px 12px;
+		text-decoration: none;
+	}
+}
+
+@mixin border-radius($radius) {
+	-webkit-border-radius: $radius;
+	   -moz-border-radius: $radius;
+	    -ms-border-radius: $radius;
+			border-radius: $radius;
+}
+
+.box { @include border-radius(10px); }
+
+.big-box { @include border-radius(40px); }
+
+@mixin message {
+	border: 1 px solid #ccc;
+	padding: 10px;
+	color: #333;
+}
+
+.success {
+	@include message;
+	border-color: green;
+}
+
+.error {
+	@include message;
+	border-color: red;
+}
+
+.warning {
+//	@extend .message;
+	@include message;
+	border-color: yellow;
+}

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+exec \
+	echo "exiting \"$0\" at line $LINENO."
+
+echo "this will never echo"
+
+exit 99 #script exit value will NOT be 99
