@@ -64,3 +64,6 @@ say "current circulation JustinObj's : ". $new_pen->circulation;
 
 say " left scope of newest pen, what is count now? " . $new_pen->circulation;
 
+say "Can jobj color?";
+say Dumper $new_pen->can('color');
+
