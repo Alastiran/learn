@@ -1,0 +1,34 @@
+<head>
+	<style>
+		div {
+			height: 50px;
+			width: 50px;
+			float: left;
+			margin-right: 10px;
+			display: none;
+			backgorund-color: #090;
+		}
+	</style>
+<body>
+<button>GO</button>
+<p>Ready...</p>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+
+<script src="file:///Users/sharps.justin/javascript_libraries/jquery-1.11.0.js">
+<script>
+	$("button").on("click", function() {
+		$("p").append("started....");
+
+		$("div").each.(function(i) {
+			$(this).fadeIn().fadeOut(1000 * ( i + 1) );
+		});
+
+		$("div").promise().done(function() {
+			$("p").append('Finished!');
+		});
+	});
+</script>
+</body>	
