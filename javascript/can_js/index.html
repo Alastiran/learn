@@ -1,0 +1,169 @@
+<html>
+<head>
+    <title>CanJS Tutorial</title>
+</head>
+<body>
+    <script src="file:///Users/justinsharps/javascript_libraries/jquery/jquery_1.10.0/jquery-1.11.0.js"></script>
+    <script src="http://canjs.com/release/latest/can.jquery.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var Todo = can.Construct.extend({
+                count: 0
+            }, {
+                init: function(name, author) {
+                    this.name = name;
+                    this.authorName = author;
+                    this.constructor.count++
+                },
+                isSecret: function() {
+                    return false;
+                },
+                allowedToEdit: function() {
+                    return ! this.isSecret();
+                },
+                author: function() {
+                    return this.authorName;
+                }
+            });
+            window.Todo = Todo;
+            var PrivateTodo = Todo.extend({}, {
+                init: function(owner, isShared) {
+                    can.Construct.prototype.init.apply(this, arguments);
+                    this.isShared = isShared;
+                },
+
+                isSecret: function() {
+                    return true;
+                }
+            });
+
+            var t = new Todo("stud","justin");
+            t.allowedToEdit(); // true
+
+            var p = new PrivateTodo();
+            p.allowedToEdit(); // false
+
+            var pagination = new can.Map({page: 1, perPage: 25, count: 1388});
+            pagination.attr('perPage');//25
+            pagination.attr('perPage', 50);
+            pagination.attr(); // get the whole object {page: 1, perPage: 50 .... }
+            pagination.removeAttr('count'); //delete count from pagination
+
+            paginate.bind('change', function(event, attr, how, newVal,oldVal) {
+                attr; //perPage
+                how; //set
+                newVal; //30
+                oldVal; //50
+            });
+
+            paginate.bind('perPage', function(event, newVal, oldVal) {
+                newVal; //30
+                oldVal; //50
+            })
+
+            paginate.attr('perPage', 30); //trigger the change and perPage events, which are bound to!
+
+            //iterate through properties of a map
+            paginate.each(function(val, key) {
+                console.log(key + ': ' + val);
+            });
+            //displays
+            //page: 1
+            //perPage: 30
+
+            //use unbind to stop listening to events on observables
+            var timesChanged = 0,
+                changeHandler = function() { timesChanged++; },
+                obs = new can.Map({value: 10});
+
+            obs.bind('change', changeHandler);
+            obs.attr('value', 30);
+            timesChanged; // 1
+
+            obs.unbind('change', changeHandler);
+            obs.attr('value', 20);
+            timesChanged; // 1, no change from above because we unbound the handler
+
+            var hobbies = new can.List(['programming', 'reading', 'running']);
+            hobbies.attr(2); //running
+            hobbies.bind('add', function(event, ??){});
+            hobbies.push('langauages');
+
+
+            //Extend Observables to create custom observable types
+            Paginate = can.Map.extend({
+                limit: 100,
+                offset: 0,
+                count: Infinity,
+                page: function() {
+                    return Math.floor(this.attr('offset') / this.attr('limit')) + 1;
+                },
+                next: function() {
+                    return this.attr('offset', this.attr('offset') + this.attr('limit') );
+                },
+            });
+
+            var pageInfo = new Paginate();
+            pageInfo.attr("offset"); // 0
+            pageInfo.page(); // 1
+
+            pageInfo.next();
+            pageInfo.attr("offset"); // 100
+            pageInfo.page(); // 2
+
+            //observe values
+            var age = can.compute(26),
+                    previousAge = 0;
+
+            age(); //read value = 26
+
+            age.bind('change', function(event, newval, oldval) {
+                previousAge = oldval;
+            });
+
+            age(27); //set the value
+            age(); //read 27
+            previousAge; //standard variable, equals 26
+
+            var name = can.Map({
+                first: 'Alice',
+                last:  'Liddell',
+            });
+            var fullName - can.compute(function() {
+                return name.atr('first') + ' ' + name.attr('last');
+            });
+            var previousName;
+
+            fullName(); //Alice Liddell
+
+            fullName.bind('change', function(event, newval, oldval) {
+                previousName = oldval;
+            });
+
+            name.attr({
+                first: 'Alice',
+                last: 'Wonderland',
+            });
+
+            fullName(); //Alice Wonderland
+            previousName; //Alice Liddell
+
+            var project = new can.Map({ progress: 0.3 });
+            var progressPercentage = can.compute(function(newVal) {
+                if (newVal !== undefined) {
+                    project.attr('progress', newVal / 100);
+                } else {
+                    return project.attr('progress') * 100;
+                }
+            });
+
+            progressPercentage(); //30
+
+            progressPercentage(75); //acting on compute
+
+            project.attr('progress'); //.75 //updates the observable
+
+        });
+    </script>
+</body>
+</html>

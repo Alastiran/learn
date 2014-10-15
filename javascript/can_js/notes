@@ -1,0 +1,8 @@
+Constructs
+    / use extend to build 'classes'
+    / pass static props and instance props (to the constructors prototype)
+    / the 'init' prototype property is called when a constructor is instantiated
+    / when using inheritance, call the base class consturctor via... can.Construct.prototype.init.apply(this, arguments);
+        // the way to access 'prototype' is vitally important
+        // the way to use 'apply' is vitally important
+        // the way to use 'arguments' is vitally important
