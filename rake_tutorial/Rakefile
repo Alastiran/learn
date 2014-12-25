@@ -1,0 +1,27 @@
+task :default => 'morning:turn_off_alarm'
+
+namespace :morning do
+    desc "turn off that pesky alarm"
+    task :turn_off_alarm do
+        puts "Turned off alarm"
+    end
+
+    desc "make coffee, cause I'm tired"
+    task :make_coffee do
+        cups = ENV["COFFEE_CUPS"] || 2
+        puts "made #{cups} of coffe. Shakes are gone"
+    end
+
+    desc "get ready for the entire day"
+    task :ready_for_the_day => [:turn_off_alarm, :make_coffee] do
+        puts "ready for the day!"
+    end
+end
+
+namespace :afternoon do
+    task :make_coffee do
+        Rake::Task['morning:make_coffee'].invoke
+        puts "ready for the rest of the day!"
+    end
+end
+
