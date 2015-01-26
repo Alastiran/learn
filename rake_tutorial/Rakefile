@@ -23,5 +23,10 @@ namespace :afternoon do
         Rake::Task['morning:make_coffee'].invoke
         puts "ready for the rest of the day!"
     end
+
+    task :drink_coffee, [:cups] do |t, args|
+        args.with_defaults(cups: 8)
+        puts "drink #{args[:cups]} of coffe"
+    end
 end
 
